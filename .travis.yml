@@ -19,7 +19,7 @@ jobs:
       if: branch = develop
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t sample-application-http-api-server ./sample-application
+        - docker build -t sample-application-http-api-server ./sample-application-http-api-server
         - docker images
         - docker tag sample-application-http-api-server $DOCKER_USERNAME/sample-application-http-api-server
         - docker push $DOCKER_USERNAME/sample-application-http-api-server
@@ -28,7 +28,7 @@ jobs:
       if: branch = develop
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t sample-application-db-changelog-job .
+        - docker build -t sample-application-db-changelog-job ./sample-application-db-changelog-job
         - docker images
         - docker tag sample-application-db-changelog-job $DOCKER_USERNAME/sample-application-db-changelog-job
         - docker push $DOCKER_USERNAME/sample-application-db-changelog-job
