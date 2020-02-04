@@ -10,20 +10,22 @@ branches:
 jobs:
   include:
     -
-      name: "Building and testing"
+      stage: "Build & Test"
+      name: "Run mvn clean verify"
       script: mvn clean verify
     -
-      name: "build db changelog Docker image"
+      stage: "Delivery"
+      name: "Build and push API Docker image"
       if: branch = develop
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t sample-application-http-api-server .
+        - docker build -t sample-application-http-api-server ./sample-application
         - docker images
         - docker tag sample-application-http-api-server $DOCKER_USERNAME/sample-application-http-api-server
         - docker push $DOCKER_USERNAME/sample-application-http-api-server
     -
-      name: "build http api Docker image"
-      if: branch = develo
+      name: "Build and push changelog job Docker image"
+      if: branch = develop
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker build -t sample-application-db-changelog-job .
