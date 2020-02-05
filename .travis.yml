@@ -18,7 +18,9 @@ jobs:
     -
       stage: "Build & Test"
       name: "Run mvn clean verify"
-      script: mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=sample-application-students
+      script:
+        - sonar-scanner -Dsonar.projectKey=sample-application-students
+        - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=sample-application-students
     -
       stage: "Delivery"
       name: "Build and push API Docker image"
