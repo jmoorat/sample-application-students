@@ -7,12 +7,18 @@ branches:
   - master
   - develop
 
+addon:
+  sonarcloud:
+    organization: "jmoorat"
+    token:
+      secure: "5d1cbe2d0aea59a6c0ffbcd436cdbac1c2df5933"
+
 jobs:
   include:
     -
       stage: "Build & Test"
       name: "Run mvn clean verify"
-      script: mvn clean verify
+      script: mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=sample-application-students
     -
       stage: "Delivery"
       name: "Build and push API Docker image"
