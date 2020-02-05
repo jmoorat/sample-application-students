@@ -19,7 +19,6 @@ jobs:
       stage: "Build & Test"
       name: "Run mvn clean verify"
       script:
-        - sonar-scanner -Dsonar.projectKey=jmoorat_sample-application-students
         - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=jmoorat_sample-application-students
     -
       stage: "Delivery"
